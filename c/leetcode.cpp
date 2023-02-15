@@ -1,3 +1,45 @@
+// No.54
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> spiral;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        int i = 0;
+        int j = 0;
+        int up = 0;
+        int left = 0;
+        int down = m - 1;
+        int right = n - 1;
+
+        while(up <= down || left <= right ){
+        for(j = left; j <= right; j++)
+            spiral.push_back(matrix[up][j]);
+        up++;
+        if(up>down && left>right)
+            break;
+
+        for(i = up; i <= down; i++)
+            spiral.push_back(matrix[i][right]);
+        right--;
+        if(up>down && left>right)
+            break;
+
+        for(j = right; j >= left; j--)
+            spiral.push_back(matrix[down][j]);
+        down--;
+        if(up>down && left>right)
+            break;
+
+        for(i = down; i >= up; i--)
+            spiral.push_back(matrix[i][left]);
+        left++;
+
+        }
+        
+        return spiral;
+    }
+};
 
 // No.94
 /**
