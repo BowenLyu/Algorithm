@@ -1,5 +1,5 @@
 
-# No.94
+// No.94
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
