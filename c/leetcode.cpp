@@ -297,6 +297,44 @@ public:
     }
 };
 
+// No.70
+//递归但超时
+class Solution {
+public:
+    int climbStairs(int n) {
+        return Fibonacci(n);
+    }
+
+    int Fibonacci(int n){
+        if(n == 1)
+            return 1;
+        if(n == 2)
+            return 2;
+        else
+            return Fibonacci(n-1) + Fibonacci(n-2);
+    }
+};
+
+//动态优化
+class Solution {
+public:
+    int climbStairs(int n) {
+        int a[n];
+
+        if(n >= 1)
+            a[0] = 1;
+        if(n >= 2)
+            a[1] = 2;
+
+        for(int i = 2; i < n; i++)
+            a[i] = a[i-1] + a[i-2];
+
+        return a[n-1];
+    }
+
+
+};
+
 // No.73
 // space O(1)
 class Solution {
