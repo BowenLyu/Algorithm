@@ -1,4 +1,5 @@
 // No.5
+// 递归超时
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -25,6 +26,70 @@ public:
 
         return true;   
     }
+};
+//动态规划
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if(n == 0)
+            return NULL;
+
+        bool isPalindrome[n][n];
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(i == j)
+                    isPalindrome[i][j] = true;
+                else
+                    isPalindrome[i][j] = false;
+            }
+        }
+            
+
+        int length = 1;
+        int begin = 0;
+        
+        for(int L = 2; L <= n; L ++)
+        {
+            for(int i = 0; i < n - L + 1; i++)
+            {
+                if(L == 2)
+                {
+                    if(s[i] == s[i + L -1] )
+                    {
+                        isPalindrome[i][i+L-1] = true;
+                        if(length < L)
+                        {
+                            length = L;
+                            begin = i;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    if(isPalindrome[i+1][i+L-2])
+                    {
+                        if(s[i] == s[i + L -1] )
+                    {
+                        isPalindrome[i][i+L-1] = true;
+                        if(length < L)
+                        {
+                            length = L;
+                            begin = i;
+                        }
+                    }
+                    }
+                }
+
+            }
+        }
+
+        return s.substr(begin, length);
+    }
+
 };
 
 // No.21
