@@ -75,8 +75,10 @@ public:
             int j = 0;
             for(int i = 0; i < num; i+=2)
             {
-                if( i+1 >= num)
-                    lists[j] = merge2Lists(lists[i], nullptr);
+                if( i+1 >= num){
+                    lists[j] = merge2Lists(lists[i], NULL);
+                    break;
+                }
                 lists[j] = merge2Lists(lists[i], lists[i+1]);
                 j++;
             }
@@ -89,7 +91,8 @@ public:
     }
 
     ListNode* merge2Lists(ListNode* list1, ListNode* list2){
-        ListNode* merge;
+        ListNode first(-1);
+        ListNode* merge = &first;
 
         if(list1 == NULL)
             return list2;
