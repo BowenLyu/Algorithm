@@ -512,3 +512,38 @@ public:
         return height + 1;
     }
 };
+
+// No.118
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> pascal;
+        pascal.resize(numRows);
+
+        if(numRows>=1)
+        {
+            pascal[0].resize(1);
+            pascal[0][0] = 1;
+        }
+        if(numRows>=2)
+        {
+            pascal[1].resize(2);
+            pascal[1][0] = pascal[1][1] = 1;
+        }
+        if(numRows >= 3)
+        {
+            for(int i = 2; i < numRows; i++)
+            {
+                pascal[i].resize(i+1);
+                pascal[i][0] = 1;
+                pascal[i][i] = 1;
+                for(int j = 1; j < i ; j++)
+                {
+                    pascal[i][j] = pascal[i-1][j-1] + pascal[i-1][j];
+                }
+            }
+        }
+        
+        return pascal;
+    }
+};
