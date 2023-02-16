@@ -1,3 +1,32 @@
+// No.5
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        for(int i = n; i > 0; i--)
+        {
+            for(int j = 0; j < n + 1 - i; j++)
+            {
+                if(Palindrom(s.substr(j, i)))
+                    return s.substr(j, i);
+            }
+        }
+        return NULL;
+    }
+
+    bool Palindrom(string s){
+        int n = s.size();
+        if(n == 0 || n == 1)
+            return true;
+        if(s[0] != s[n-1])
+            return false;
+        if(! Palindrom(s.substr(1,n-2)))
+            return false;
+
+        return true;   
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
