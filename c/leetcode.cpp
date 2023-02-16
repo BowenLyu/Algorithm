@@ -219,6 +219,34 @@ public:
     }
 };
 
+// No.53
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int subsum[n];
+        int maxsum = -10000;
+
+        subsum[0] = nums[0];
+        for(int i = 1; i < n; i++)
+        {
+            if(subsum[i-1] <= 0)
+                subsum[i] = nums[i];
+            else
+                subsum[i] = subsum[i-1] + nums[i];
+        }
+
+        for(int j = 0; j < n; j++)
+        {
+            if(subsum[j] > maxsum)
+                maxsum = subsum[j];
+        }
+        
+
+        return maxsum;
+    }
+};
+
 // No.54
 class Solution {
 public:
