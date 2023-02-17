@@ -581,3 +581,48 @@ public:
         quicksort(nums, i+1, l);
     }
 };
+
+// No.347
+class Solution {
+public:
+    static bool cmp(pair<int, int>& m, pair<int, int>& n) {
+        return m.second > n.second;
+    }
+
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> cnt;
+        int n = nums.size();
+        for(int i = 0; i < n; i++)
+        {
+            if(cnt.count(nums[i])==0)
+            {
+                cnt[nums[i]] = 1;
+                continue;
+            }
+            cnt[nums[i]]++;
+        }
+        priority_queue<pair<int,int>, vector<pair<int,int> >, decltype(&cmp) > pq(cmp);
+        for(auto& [num, count]: cnt )
+        {
+            if(pq.size() == k)
+            {
+                if(count > pq.top().second)
+                {
+                    pq.pop();
+                    pq.emplace(num, count);
+                }
+
+            }
+            else{
+                pq.emplace(num, count);
+            }
+        }
+        vector<int> topk;
+        while(! pq.empty())
+        {
+            topk.push_back(pq.top().first);
+            pq.pop();
+        }
+        return topk;
+    }
+};
