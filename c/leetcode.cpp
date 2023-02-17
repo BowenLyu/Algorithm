@@ -561,11 +561,11 @@ public:
         if(r >= l)
             return;
         int std = nums[r];
-        int i = r + 1;
+        int i = r;
         int j = l;
 
         while(i != j){
-            while(std >= nums[j] && i < j)
+            while(std > nums[j] && i < j)
                 j--;
             while(std <= nums[i] && i < j)
                 i++;
