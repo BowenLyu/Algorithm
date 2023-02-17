@@ -547,3 +547,37 @@ public:
         return pascal;
     }
 };
+
+// No.215
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        quicksort(nums, 0, n-1);
+        return nums[k-1];
+    }
+
+    void quicksort(vector<int>& nums, int r, int l){
+        if(r >= l)
+            return;
+        int std = nums[r];
+        int i = r + 1;
+        int j = l;
+
+        while(i != j){
+            while(std >= nums[j] && i < j)
+                j--;
+            while(std <= nums[i] && i < j)
+                i++;
+            
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        nums[r] = nums[i];
+        nums[i] = std;
+
+        quicksort(nums, r, i-1);
+        quicksort(nums, i+1, l);
+    }
+};
