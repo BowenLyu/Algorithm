@@ -227,6 +227,26 @@ public:
 
 };
 
+// No.9
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x < 0)
+            return false;
+        vector<int> num;
+        while(x != 0){
+            num.push_back(x % 10);
+            x = x / 10;
+        }
+        int n = num.size();
+        for(int i = 0; i < n/2; i++){
+            if(num[i] != num[n-1-i])
+                return false;
+        }
+        return true;
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
