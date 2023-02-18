@@ -1,3 +1,138 @@
+// No.1
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> hm;
+        int n = nums.size();
+        hm[nums[0]] = 0;
+        for(int i = 1; i < n; i++)
+        {
+            if(hm.count(target - nums[i]))
+                return vector<int>{hm[target - nums[i]], i};
+            hm[nums[i]] = i;
+        }
+        return {};
+    }
+};
+
+// No.2
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// 这种解法无法处理大数，int类型的位数不够
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int num1 = list2num(l1);
+        int num2 = list2num(l2);
+        int num = num1 + num2;
+        ListNode* list = num2list(num);
+        return list;
+    }
+
+    int list2num(ListNode* list){
+        int num = 0;
+        int dg = 0;
+        if(list == NULL)
+            return num;
+        while(list){
+            num += list->val * pow(10, dg);
+            list = list->next;
+            dg++;
+        }
+        return num;
+    }
+
+    ListNode* num2list(int num){
+        ListNode* list = new ListNode();
+        ListNode* cur;
+        int dg = 1;
+        if(!num)
+        {
+            list->val =0;
+            return list;
+        }
+        cur = list;
+        int cnum;
+        do{
+            ListNode* newnode = new ListNode(); 
+            cnum = num % 10;
+            newnode->val = cnum;
+            cur->next = newnode;
+            cur = newnode;
+            num = (num - cnum) / 10;
+        }while(num != 0);
+        return list->next;
+    }
+};
+
+// 另一种
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* list = new ListNode();
+        ListNode* cur = list;
+
+        int sum = 0;
+        int last = 0;
+        int l1val = 0;
+        int l2val = 0;
+        while(l1 || l2){
+            ListNode* temp = new ListNode();
+            if(l1){
+                l1val = l1->val;
+                l1 = l1->next;
+            }
+            else
+                l1val = 0;
+            if(l2){
+                l2val = l2->val;
+                l2 = l2->next;
+            }
+            else
+                l2val = 0;
+
+            sum = l1val + l2val + last;
+            if(sum < 10){
+                temp->val = sum;
+                last = 0;
+            }  
+            else{
+                temp->val = sum % 10;
+                last = 1;
+            }           
+            cur->next = temp;
+            cur = temp;
+        }
+
+        if(last){
+            ListNode* lst = new ListNode();
+            lst->val = last;
+            cur->next = lst;
+        }
+
+        return list->next;
+    }
+};
+
 // No.5
 // 递归超时
 class Solution {
