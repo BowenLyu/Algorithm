@@ -133,6 +133,32 @@ public:
     }
 };
 
+// No.3
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        if(n == 0)
+            return 0;
+        vector<int> num(n);
+        num[0] = 1;
+        int max = 1;
+        for(int i = 1; i < n; i++){
+            int count = num[i-1];
+            for(int j = i - num[i-1]; j < i; j++){
+                if(s[j] == s[i]){
+                    count -=  j - (i - num[i-1]) + 1;
+                    continue;
+                }
+            }
+            num[i] = count + 1;
+            if(max < num[i])
+                max = num[i];
+        }
+        return max;
+    }
+};
+
 // No.5
 // 递归超时
 class Solution {
