@@ -253,6 +253,26 @@ public:
 
 };
 
+// No.6
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        string zigzag;
+        int n = s.size();
+        if(numRows < 2)
+            return s;
+        for(int i = 0; i < numRows; i++){
+            for(int j = 0; j < n; j = j + 2*numRows-2){
+                if(i + j < n)
+                    zigzag.push_back(s[i + j]);
+                if(i != 0 && i != numRows -1 && 2*numRows - 2 + j - i < n)
+                    zigzag.push_back(s[2*numRows - 2 + j - i]);
+            }
+        }
+        return zigzag;
+    }
+};
+
 // No.9
 class Solution {
 public:
