@@ -273,6 +273,24 @@ public:
     }
 };
 
+// No.7 
+/* 关键在于推导rev的取值范围判断语句！ */
+class Solution {
+public:
+    int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            if (rev < INT_MIN / 10 || rev > INT_MAX / 10) {
+                return 0;
+            }
+            int digit = x % 10;
+            x /= 10;
+            rev = rev * 10 + digit;
+        }
+        return rev;
+    }
+};
+
 // No.9
 class Solution {
 public:
