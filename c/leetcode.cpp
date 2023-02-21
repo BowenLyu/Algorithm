@@ -368,6 +368,28 @@ public:
     }
 };
 
+// No.14
+// 注意 ["",""] 类型的空字符串
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string cp;
+        int n = strs.size();
+        int length = strs[0].size();
+        int ind = 0;
+        while(ind < length){
+            char temp = strs[0][ind];
+            for(int i = 1; i < n; i++){
+                if(strs[i][ind] != temp)
+                    return cp;
+            }
+            cp.push_back(temp);
+            ind++;
+        }
+        return cp;
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
