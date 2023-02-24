@@ -390,6 +390,59 @@ public:
     }
 };
 
+// No.15
+// 耗时巨大，且自己的解强行使用hash并不好，下面实现的算法没有避免多次计算的问题。
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> ts;
+        map<int,int> n_n;
+        
+        for(int i = 0; i < n; i++)
+            n_n[nums[i]]++;
+
+        if(n_n.begin()->first > 0)
+                return ts;
+
+        if(n_n.count(0)){
+            if(n_n[0] >= 3){
+            vector<int> temp{0,0,0};
+            ts.push_back(temp);
+            }
+        }
+
+        for(map<int,int>::iterator iter = n_n.begin();iter != n_n.end(); iter++){
+            map<int, int>::iterator iter2 = n_n.end();
+            for(iter2--; iter2 != iter; iter2--){
+                if(iter->first < 0 && iter2->first > 0){
+                    if(-(iter->first + iter2->first) == iter->first){
+                        if(iter->second > 1){
+                            vector<int> temp{iter->first, iter->first, iter2->first};
+                            ts.push_back(temp);
+                        }
+                    }
+                    else if(-(iter->first + iter2->first) == iter2->first){
+                        if(iter2->second > 1){
+                            vector<int> temp{iter->first, iter2->first, iter2->first};
+                            ts.push_back(temp);
+                        }
+                    }
+                    else{
+                        if(-(iter->first + iter2->first) > iter->first && -(iter->first + iter2->first) < iter2->first){
+                            if(n_n.count(-(iter->first + iter2->first))){
+                            vector<int> temp{iter->first, -(iter2->first + iter->first), iter2->first};
+                            ts.push_back(temp);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            return ts;
+        }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
