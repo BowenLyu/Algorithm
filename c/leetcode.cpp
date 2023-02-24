@@ -473,6 +473,32 @@ public:
     }
 };
 
+// No.17
+// 对字符串的操作还是不是很熟悉
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> pn{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        
+        if(digits.empty())
+            return {};
+
+        vector<string> output{""};
+        vector<string> temp;
+        for(auto& a: digits){
+            string s = pn[a - '0'];
+            for(auto& b: s){
+                for(auto& c: output){
+                    temp.push_back(c + b);
+                }
+            }
+            output = temp;
+            temp.clear();
+        }
+        return output;
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
