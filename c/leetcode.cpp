@@ -443,6 +443,36 @@ public:
         }
 };
 
+// No.16
+// 双指针，不过不知道这里是不是因为没有用中间变量，导致重复的计算步骤耗时过多？
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        
+        int ans = 0;
+        int best = INT_MAX;
+        for(int i = 0; i < nums.size() -2; i++){
+            int left = i + 1;
+            int right = nums.size() - 1;
+            while(left < right){
+                if(nums[i] + nums[left] + nums[right] == target)
+                    return target;
+                else if(abs(nums[i] + nums[left] + nums[right] - target) < best){
+                    best = abs(nums[i] + nums[left] + nums[right] - target);
+                    ans = nums[i] + nums[left] + nums[right];
+                }
+                if(nums[i] + nums[left] + nums[right] > target )
+                    right--;
+                else
+                    left++;
+            }
+        }
+        return ans;
+        
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
