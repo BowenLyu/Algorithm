@@ -728,6 +728,25 @@ public:
     }
 };
 
+// No.26
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int cur = nums[0] - 1;
+        int count = 0;
+        vector<int> new_nums;
+        for(int i = 0; i < nums.size(); i++){
+            if(nums[i] != cur){
+                new_nums.push_back(nums[i]);
+                cur = nums[i];
+                count++;
+            }
+        }
+        nums = new_nums;
+        return count;
+    }
+};
+
 // No.53
 class Solution {
 public:
