@@ -499,6 +499,46 @@ public:
     }
 };
 
+// No.18
+// 也可不用set。加入多个是否相同判断。
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        
+        if(n < 4)
+            return {};
+
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> output;
+        set<vector<int>> s;
+        for(int i = 0; i < n - 3; i++){
+            for(int j = i + 1; j < n - 2; j++){
+                int l = j + 1;
+                int r = n - 1;
+                long long diff = target - (long long)nums[i] - (long long)nums[j];
+                while(l < r){
+                    long long sumlr = (long long)nums[l] + (long long)nums[r];
+                    if(sumlr == diff){
+                        vector<int> temp{nums[i], nums[j], nums[l], nums[r]};
+                        s.insert(temp);
+                        l++;
+                        r--;
+                    }
+                    else if(sumlr < diff)
+                        l++;
+                    else
+                        r--;
+
+                }
+            }
+        }
+        for(auto& e: s)
+            output.push_back(e);
+        return output;
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
