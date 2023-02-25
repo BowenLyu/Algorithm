@@ -729,6 +729,7 @@ public:
 };
 
 // No.26
+// 还可以使用双指针，空间复杂度为O(1)
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
