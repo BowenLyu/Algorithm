@@ -573,6 +573,34 @@ public:
     }
 };
 
+// No.20
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.size() % 2 == 1)
+            return false;
+
+        unordered_map<char,int> h{{'(',-1}, {')',1}, {'{',-2}, {'}',2}, {'[',-3}, {']',3}};
+        stack<char> ss;
+        for(int i = 0; i < s.size(); i++){
+            if(h[s[i]] < 0)
+                ss.push(s[i]);
+            else{
+                if(ss.empty())
+                    return false;
+                char temp = ss.top();
+                if(h[temp] + h[s[i]] == 0)
+                    ss.pop();
+                else
+                    return false;
+            }
+        }
+        if(!ss.empty())
+            return false;
+        return true;
+    }
+};
+
 // No.21
 /**
  * Definition for singly-linked list.
