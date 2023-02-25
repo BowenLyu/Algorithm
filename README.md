@@ -1,3 +1,5 @@
 # Algorithm library
 
-followed [classical problem](https://blog.csdn.net/qq_46225886/article/details/108720536)
+Now the problems of leetcode is all solved and implemented by C++.
+
+Solution of python will be uploaded later.
