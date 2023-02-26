@@ -656,6 +656,37 @@ public:
     }
 };
 
+// No.22
+// 递归，左边不小于右边
+class Solution {
+public:
+    vector<string> ans;
+    vector<string> generateParenthesis(int n) {
+        vector<string> ().swap(ans);
+        if(n == 0)
+            return {};
+        
+        genParenthesis("", n, n);
+        return ans;
+        
+    }
+
+    void genParenthesis(string o, int l, int r){
+        if(l == 0 && r == 0){
+            ans.push_back(o);
+            return;
+        }
+        if(l == r){
+            genParenthesis(o + '(', l-1, r);
+        }
+        else{
+            if(l > 0)
+                genParenthesis(o + '(', l-1, r);
+            genParenthesis(o + ')', l, r-1);
+        }
+    }
+};
+
 // No.23
 /**
  * Definition for singly-linked list.
