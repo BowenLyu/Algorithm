@@ -759,6 +759,45 @@ public:
     }
 };
 
+// No.24
+// 这个也能递归！
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(head == NULL)
+            return head;
+        ListNode* temp2 = head->next;
+        if(temp2 == NULL)
+            return head;
+
+        ListNode* temp1 = head;
+        ListNode* new_head = temp2;
+        ListNode* end = new ListNode(0);
+        while(temp1 && temp2){
+            end->next = temp2;
+            temp1->next = temp2->next;
+            temp2->next = temp1;
+            end = temp1;
+            temp1 = temp1->next;
+            if(temp1)
+                temp2 = temp1->next;
+            else
+                return new_head;
+        }
+        return new_head;
+    }
+};
+
 // No.26
 // 还可以使用双指针，空间复杂度为O(1)
 class Solution {
