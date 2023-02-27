@@ -909,6 +909,25 @@ public:
     }
 };
 
+// No.27
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int n = nums.size();
+        int end = n - 1;
+        for(int i = 0; i <= end; i++){
+            if(nums[i] == val){
+                while(nums[end] == val && end > i)
+                    end--;
+                nums[i] = nums[end];
+                nums[end] = val;
+                end--;
+            }
+        }
+        return end + 1;
+    }
+};
+
 // No.53
 class Solution {
 public:
