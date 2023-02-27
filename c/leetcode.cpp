@@ -841,6 +841,54 @@ public:
 //     }
 // };
 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        stack<ListNode*> reverseKList;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* cur = head;
+        ListNode* end = dummy;
+
+        while(cur){
+            int count = 0;
+            for(int i = 0; i < k; i++){
+                if(cur){
+                    reverseKList.push(cur);
+                    cur = cur->next;
+                    count++;
+                }
+                else{
+                    while(! reverseKList.empty()){
+                        cur = reverseKList.top();
+                        reverseKList.pop();
+                    }
+                    end->next = cur;
+                    return dummy->next;
+                }
+            }
+
+            while(!reverseKList.empty()){
+                ListNode* temp = reverseKList.top();
+                reverseKList.pop();
+                end->next = temp;
+                end = end->next;
+                end->next = NULL;   //这个地方必须要加上尾指针指向NULL才不会报指向释放内存的错误，暂时不知道原因
+            }
+        }
+        return dummy->next;
+    }
+};
+
 // No.26
 // 还可以使用双指针，空间复杂度为O(1)
 class Solution {
