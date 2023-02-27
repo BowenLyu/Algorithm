@@ -928,6 +928,48 @@ public:
     }
 };
 
+// No.28
+// KMP算法实现，挺好理解的，但是需要动笔写写。
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        vector<int> kmptable = KMP(needle);
+
+        int n = haystack.size();
+        int m = needle.size();
+        int i = 0;
+        while(i <= n - m){
+            int count = 0;
+            while(haystack[i] == needle[count]){
+                i++;
+                count++;
+                if(count == m)
+                    return i-m;
+            }
+            if(count > 0)
+                i = i - kmptable[count - 1];
+            else
+                i++;
+        }
+        return -1;
+    }
+
+    vector<int> KMP(string match){
+        int n = match.size();
+        vector<int> kmptable(n);
+        // kmptable.resize(n);
+        kmptable[0] = 0;
+
+        for(int i = 1; i < n; i++){
+            int now = kmptable[i - 1];
+            while(now >= 0 && match[i] != match[kmptable[now]])
+                now--;
+            kmptable[i] = now + 1;
+        }
+        return kmptable;
+    }
+};
+
 // No.53
 class Solution {
 public:
