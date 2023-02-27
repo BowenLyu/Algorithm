@@ -882,7 +882,7 @@ public:
                 reverseKList.pop();
                 end->next = temp;
                 end = end->next;
-                end->next = NULL;   //这个地方必须要加上尾指针指向NULL才不会报指向释放内存的错误，暂时不知道原因
+                end->next = NULL;   //这个地方必须要加上尾指针指向NULL才不会报指向释放内存的错误，暂时不知道原因 https://blog.csdn.net/cncxycpp/article/details/106057900
             }
         }
         return dummy->next;
