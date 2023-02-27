@@ -970,6 +970,56 @@ public:
     }
 };
 
+// No.29
+//位运算以及int，long类型的理解
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN) {
+            if (divisor == 1) {
+                return INT_MIN;
+            }
+            if (divisor == -1) {
+                return INT_MAX;
+            }
+        }
+        // 考虑除数为最小值的情况
+        if (divisor == INT_MIN) {
+            return dividend == INT_MIN ? 1 : 0;
+        }
+        // 考虑被除数为 0 的情况
+        if (dividend == 0) {
+            return 0;
+        }
+
+        int flag1 = 0;
+        int flag2 = 0;
+        long ldividend = dividend;
+        long ldivisor = divisor;
+
+        if(dividend < 0){
+            ldividend = -ldividend;
+            flag1 = 1;
+        } 
+        if(divisor < 0){
+            ldivisor = -ldivisor;
+            flag2 = 1;
+        }
+        long output = 0;
+        for(int i = 31; i >= 0; i--){
+            if(ldividend >= ldivisor<<i){
+                output += 1<<i;
+                ldividend -= ldivisor<<i;
+            }
+        }
+
+        if(flag1 ^ flag2)
+            return -output;
+        else
+            return output;
+    }
+};
+
 // No.53
 class Solution {
 public:
