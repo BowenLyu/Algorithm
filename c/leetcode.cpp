@@ -798,6 +798,49 @@ public:
     }
 };
 
+//No.25
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+// 这个解法会有内存问题，暂时还不清楚原因
+// class Solution {
+// public:
+//     ListNode* reverseKGroup(ListNode* head, int k) {
+//         stack<ListNode*> reverseKList;
+//         ListNode* dummy = new ListNode(-1, head);
+//         ListNode* cur = head;
+//         ListNode* end = dummy;
+
+//         while(cur){
+//             int count = 0;
+//             for(int i = 0; i < k; i++){
+//                 if(cur){
+//                     reverseKList.push(cur);
+//                     cur = cur->next;
+//                     count++;
+//                 }
+//                 else
+//                     return dummy->next;
+//             }
+
+//             while(!reverseKList.empty()){
+//                 ListNode* temp = reverseKList.top();
+//                 reverseKList.pop();
+//                 end->next = temp;
+//                 end = end->next;
+//             }
+//         }
+//         return dummy->next;
+//     }
+// };
+
 // No.26
 // 还可以使用双指针，空间复杂度为O(1)
 class Solution {
