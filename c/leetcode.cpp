@@ -1093,6 +1093,44 @@ public:
     }
 };
 
+// No.34
+// 两次二分，一次找头一次找尾
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int l = 0;
+        int r = nums.size() - 1;
+        while(l <= r){
+            int mid = (l + r)/2;
+            if(target <= nums[mid]){
+                r = mid - 1;
+            }
+            else{
+                l = mid + 1;
+            }
+        }
+        int ll = l;
+
+        l = 0;
+        r = nums.size() - 1;
+        while(l <= r){
+            int mid = (l + r)/2;
+            if(target >= nums[mid])
+                l = mid + 1;
+            else
+                r = mid - 1;
+        }
+        int rr = r;
+
+        if(ll >= 0 && rr < nums.size() && ll <= rr){
+            vector<int> ans{ll,rr};
+            return ans;
+        }
+        else
+            return {-1,-1};
+    }
+};
+
 // No.35
 //需要进一步熟练二分法
 class Solution {
