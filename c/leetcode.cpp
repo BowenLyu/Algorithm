@@ -1053,6 +1053,46 @@ public:
     }
 };
 
+// No.33
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        return partition(nums, target, 0 , nums.size() -1);
+
+    }
+    
+    int partition(vector<int>& nums, int target, int l, int r){
+        if(nums[l] <= nums[r]){
+            if(target >= nums[l] && target <= nums[r]){
+                if(target == nums[l])
+                    return l;
+                if(target == nums[r])
+                    return r;
+                int mid = (l+r)/2;
+                int k1 = partition(nums, target, l, mid);
+                int k2 = partition(nums, target, mid+1, r);
+                if(k1 >= 0)
+                    return k1;
+                else if(k2 >= 0)
+                    return k2;
+            }
+            return -1;
+        }
+        else{
+            int mid = (l+r)/2;
+            int k1 = partition(nums, target, l, mid);
+            int k2 = partition(nums, target, mid+1, r);
+            if(k1 >= 0)
+                return k1;
+            else if(k2 >= 0)
+                return k2;
+            else
+                return -1;
+        }
+        
+    }
+};
+
 // No.53
 class Solution {
 public:
