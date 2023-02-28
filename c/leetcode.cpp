@@ -1043,7 +1043,7 @@ public:
         }
         int l = i + 1;
         int r = n - 1;
-        while(l > r){
+        while(l < r){
             int temp = nums[l];
             nums[l] = nums[r];
             nums[r] = temp;
@@ -1090,6 +1090,24 @@ public:
                 return -1;
         }
         
+    }
+};
+
+// No.35
+//需要进一步熟练二分法
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int n = nums.size();
+        int l = 0;
+        int r = n - 1;
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(nums[mid] < target)
+                l = mid + 1;
+            else r = mid - 1;
+        }
+        return l;
     }
 };
 
