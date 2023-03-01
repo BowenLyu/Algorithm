@@ -1181,6 +1181,30 @@ public:
     }
 };
 
+// No.38
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n==1)
+            return "1";
+        string last = countAndSay(n - 1);
+        int i = 0;
+        string output;
+        while(i < last.size()){
+            char cur = last[i];
+            int count = 1;
+            while(cur == last[i+count])
+                count ++;
+            
+            i = i + count;
+            char cc = '0' + count;
+            output += cc;
+            output += cur;
+        }
+        return output;
+    }
+};
+
 // No.53
 class Solution {
 public:
