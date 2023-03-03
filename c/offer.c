@@ -119,3 +119,20 @@ public:
         return false;
     }
 };
+
+// 05
+// 得找个时间系统的看一下关于字符串的内容
+class Solution {
+public:
+    string replaceSpace(string s) {
+        int n = s.size();
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            if(s[i + count * 2] == ' '){
+                s.replace(i + count * 2, 1, "%20", 0, 3);
+                count++;
+            }   
+        }
+        return s;
+    }
+};
