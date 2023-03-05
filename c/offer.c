@@ -200,3 +200,27 @@ public:
  * obj->appendTail(value);
  * int param_2 = obj->deleteHead();
  */
+
+// 10
+class Solution {
+public:
+    int fib(int n) {
+        if(n == 0)
+            return 0;
+        if(n == 1)
+            return 1;
+        
+        int MOD = 1000000007;
+
+        int a0 = 0,  a1 = 1;
+        int a2 = 0 + 1;
+        // a0 a1 a2
+        //    a0 a1 a2
+        for(int i = 2; i < n; i++){
+            a0 = a1;
+            a1 = a2;
+            a2 = (a0 + a1) % MOD;
+        } 
+        return a2;
+    }
+};
