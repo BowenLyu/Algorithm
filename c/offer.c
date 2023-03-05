@@ -224,3 +224,23 @@ public:
         return a2;
     }
 };
+
+// 10-2
+class Solution {
+public:
+    int numWays(int n) {
+        if(n == 0)
+            return 1;
+        if(n == 1)
+            return 1;
+
+        int MOD = 1000000007;
+        int a0 = 1, a1 = 1, a2 = 2;
+        for(int i = 2; i < n; i++){
+            a0 = a1;
+            a1 = a2;
+            a2 = (a0 + a1) % MOD;
+        } 
+        return a2;
+    }
+};
