@@ -246,7 +246,7 @@ public:
 };
 
 //11
-//重点温习的题目
+//需要重点温习的题目
 class Solution {
 public:
     int minArray(vector<int>& numbers) {
