@@ -163,3 +163,40 @@ public:
         nums.push_back(head->val);
     }
 };
+
+// 09
+class CQueue {
+public:
+    stack<int> q1;
+    stack<int> q2;
+
+    CQueue() {
+    }
+    
+    void appendTail(int value) {
+        q1.push(value);
+    }
+    
+    int deleteHead() {
+        if(q2.empty()){
+            if(q1.empty())
+                return -1;
+            else{
+                while(! q1.empty()){
+                    q2.push(q1.top());
+                    q1.pop();
+                }
+            }
+        }
+        int output = q2.top();
+        q2.pop();
+        return output;
+    }
+};
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue* obj = new CQueue();
+ * obj->appendTail(value);
+ * int param_2 = obj->deleteHead();
+ */
