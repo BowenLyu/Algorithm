@@ -265,3 +265,48 @@ public:
         return numbers[r];
     }
 };
+
+// 12
+// 回溯和DFS 需要重点温习熟练
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(board[i][j]==word[0]){
+                    bool ans = check(board, word, i, j, 0);
+                    if(ans)
+                        return ans;
+                }
+            }
+        }
+        return false;
+    }
+
+    bool check(vector<vector<char>>& board, string word, int i, int j, int k){
+        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size())
+            return false;
+
+        if(board[i][j] == '\0')
+            return false;
+
+        if(board[i][j] == word[k]){
+            if(k == word.size() -1)
+                return true;
+            board[i][j] = '\0';
+            bool c1 = check(board, word, i-1, j, k+1);
+            bool c2 = check(board, word, i+1, j, k+1);
+            bool c3 = check(board, word, i, j-1, k+1);
+            bool c4 = check(board, word, i, j+1, k+1);
+
+            board[i][j] = word[k];
+            if(c1 || c2 || c3 || c4)
+                return true;
+        }
+        
+        return false;
+         
+    }
+};
