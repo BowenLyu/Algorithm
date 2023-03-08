@@ -310,3 +310,37 @@ public:
          
     }
 };
+
+//14-1
+//动态规划非递归写法
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if(n < 3)
+            return 1;
+        int l[n]; 
+        memset(l, 0, sizeof(int) * n);
+        l[0] = 0;
+        l[1] = 1;
+        int l1, l2;
+        for(int i = 2; i < n; i++){
+            for(int j = 1; j <= i/2; j++){
+                if(l[j] < j+1)
+                    l1 = j+1;
+                else
+                    l1 = l[j];
+                
+                if(l[i-j-1] < i-j)
+                    l2 = i-j;
+                else
+                    l2 = l[i-j-1];
+
+                if(l[i] < l1 * l2)
+                    l[i] = l1 * l2;
+            }
+        }
+
+        return l[n-1];
+    }
+
+};
