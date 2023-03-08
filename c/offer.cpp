@@ -376,3 +376,26 @@ public:
         return count;
     }
 };
+
+// 16
+// 快速pow还蛮常见的
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long N = n;
+        return N>=0 ? quickpow(x, N) : 1.0 / quickpow(x, -N);
+    }
+
+    double quickpow(double x, long long N){
+        double ans = 1;
+        double cur = x;
+        while(N > 0){
+            if(N % 2 == 1)
+                ans *= cur;
+
+            cur *= cur;
+            N /= 2;
+        }
+        return ans;
+    }
+};
