@@ -344,3 +344,21 @@ public:
     }
 
 };
+
+// 14-2
+// 目前只会用贪心去处理边界问题， 动态规划模完不好比较大小
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if(n < 4)
+            return n-1;
+        int MOD = 1000000007;
+        long max = 1;
+        while(n > 4){
+            n -=3;
+            max = (max * 3) % MOD;
+        }
+        return (max * n) % MOD;
+        
+    }
+};
