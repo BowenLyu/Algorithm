@@ -1205,6 +1205,40 @@ public:
     }
 };
 
+// No.39
+//回溯法的应用
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> all;
+        vector<int> single;
+        dfs(candidates, target, 0, single, all);
+        return all;
+    }
+    
+    void dfs(vector<int>& candidates, int target, int idx, vector<int>& single, vector<vector<int>>& all){
+        if(idx == candidates.size())
+            return;
+        
+        if(target == 0){
+            all.push_back(single);
+            return;
+        }
+        
+        if(target < candidates[idx]){
+            return;
+        }
+        single.push_back(candidates[idx + 1]);
+        dfs(candidates, target - candidates[idx+1], idx+1, single, all);
+        single.pop_back();
+        
+        single.push_back(candidates[idx]);
+        dfs(candidates, target - candidates[idx], idx, single, all);
+        single.pop_back();
+        
+    }
+};
+
 // No.53
 class Solution {
 public:
