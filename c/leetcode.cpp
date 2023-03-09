@@ -1239,6 +1239,34 @@ public:
     }
 };
 
+// No.40
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<int> single;
+        vector<vector<int>> all;
+        dfs(candidates, target, 0, single, all);
+        return all;
+    }
+    
+    void dfs(vector<int>& candidates, int target, int idx, vector<int> single, vector<vector<int>> all){
+        if(idx == candidates.size())
+            return;
+        
+        target -= candidates[idx];
+        single.push_back(candidates[idx]);
+        
+        if(target == 0){
+            all.push_back(single);
+            single.pop_back();
+            return;
+        }
+        if(target > 0)
+            dfs(candidates, target, idx+1, single, all);
+    }
+};
+
 // No.53
 class Solution {
 public:
