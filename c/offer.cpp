@@ -399,3 +399,48 @@ public:
         return ans;
     }
 };
+
+// 17
+// 看评论原题应该是要用大数，所以考察的是字符串表达，晚点再写一个版本的
+class Solution {
+public:
+    vector<int> printNumbers(int n) {
+        int border = pow(10, n);
+        vector<int> output;
+        for(int i = 1; i < border; i++){
+            output.push_back(i);
+        }
+        return output;
+    }
+};
+
+// 18
+// 简单的链表题，注意不出错吧
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        if(head == NULL)
+            return NULL;
+
+        if(head->val == val)
+            return head->next;
+
+        ListNode* cur = head;
+
+        while(cur->next != NULL && cur->next->val != val)
+            cur = cur->next;
+
+        if(cur->next != NULL)
+            cur->next = cur->next->next;
+
+        return head;
+    }
+};
