@@ -444,3 +444,55 @@ public:
         return head;
     }
 };
+
+
+// 19
+// 这题是真的难，转移方程情况挺绕的，经常拿出来瞅瞅吧
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int ns = s.size();
+        int np = p.size();
+
+        int f[ns + 1][np + 1];
+        memset(f, 0, sizeof(int) * (ns+1)*(np+1));
+        f[0][0] = 1;
+
+        for(int j = 2; j < np + 1; j+=2){
+            if(f[0][j-2] && p[j-1]=='*')
+                f[0][j] = 1;
+        }
+
+
+        for(int i = 1; i < ns + 1; i++){
+            for(int j = 1; j < np + 1; j++){
+                if(p[j-1] != '*'){
+                    if(p[j-1] == '.')
+                        f[i][j] = f[i-1][j-1];
+                    else{
+                        if(p[j-1] == s[i-1] && f[i-1][j-1])
+                            f[i][j] = 1;
+                    }
+                }
+                else{
+                    if(p[j-2] == '.'){
+                        if(f[i-1][j] || f[i][j-2])
+                            f[i][j] = 1;
+                    }
+                    else if(p[j-2] == s[i-1]){
+                        if(f[i-1][j] || f[i][j-2])
+                            f[i][j] = 1;
+                    }
+                    else{
+                        f[i][j] = f[i][j-2];
+                    }
+                }
+            }
+        }
+
+        if(f[ns][np] == 1)
+            return true;
+        else
+            return false;
+    }
+};
