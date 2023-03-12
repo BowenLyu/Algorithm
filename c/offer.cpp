@@ -542,3 +542,29 @@ public:
         return second;
     }
 };
+
+// 24 
+// 不是很熟，需要多看一下，主要是利用了一个空指针，避免了“环”的产生
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* first = head;
+        ListNode* second = nullptr;
+
+        while(first){
+            ListNode* temp = second;
+            second = first;
+            first = first->next;
+            second->next = temp;
+        }
+        return second;
+    }
+};
