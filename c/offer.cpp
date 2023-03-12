@@ -504,7 +504,7 @@ public:
         int l = 0;
         int r = nums.size()-1;
         while(l < r){
-            while(nums[l] %2 == 1 && l < r)
+            while(nums[l] %2 == 1 && l < r) //这个地方是否 l<r放前面会好一些？
                 l++;
             while(nums[r] %2 == 0 && l < r)
                 r--;
