@@ -496,3 +496,23 @@ public:
             return false;
     }
 };
+
+// offer 21
+class Solution {
+public:
+    vector<int> exchange(vector<int>& nums) {
+        int l = 0;
+        int r = nums.size()-1;
+        while(l < r){
+            while(nums[l] %2 == 1 && l < r)
+                l++;
+            while(nums[r] %2 == 0 && l < r)
+                r--;
+
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+        }
+        return nums;
+    }
+};
