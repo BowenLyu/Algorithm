@@ -662,3 +662,34 @@ public:
         return root;
     }
 };
+
+// 28
+// 稍微有点绕的递归，主要是如何两边同时做dfs
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(!root)
+            return true;
+        return isSymmetricSub(root->left, root->right);
+    }
+
+    bool isSymmetricSub(TreeNode* left, TreeNode* right) {
+        if(!left && !right)
+            return true;
+        
+        if(!left || !right || left->val != right->val)
+            return false;
+
+        return isSymmetricSub(left->left, right->right) && isSymmetricSub(left->right, right->left);
+    }
+
+};
