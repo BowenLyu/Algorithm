@@ -602,3 +602,40 @@ public:
         return dummy->next;
     }
 };
+
+// 26 
+// 分类错了很多次
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubStructure(TreeNode* A, TreeNode* B) {
+        if(B == NULL)
+            return false;
+        return check(A,B,0);
+    }
+
+    bool check(TreeNode* A, TreeNode* B, int start){
+        if(B==NULL)
+            return true;
+
+        bool same1 = false, same2 = false;
+        if(A && B){
+            if(A->val == B->val)
+                same1 = check(A->left,B->left, start + 1) && check(A->right, B->right, start + 1);
+            else if(start)
+                return false;
+            if(start == 0)
+                same2 = check(A->left, B, start) || check(A->right, B, start);
+            
+        }
+        return same1 || same2;
+    }
+};
