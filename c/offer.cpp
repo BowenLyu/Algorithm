@@ -639,3 +639,26 @@ public:
         return same1 || same2;
     }
 };
+
+// 27
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mirrorTree(TreeNode* root) {
+        if(root == NULL || (root->left == NULL && root->right == NULL))
+            return root;
+        TreeNode* temp = mirrorTree(root->left);
+        root->left = mirrorTree(root->right);
+        root->right = temp;
+        
+        return root;
+    }
+};
