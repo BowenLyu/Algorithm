@@ -693,3 +693,52 @@ public:
     }
 
 };
+
+// 29
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if(!matrix.size())
+            return {};
+
+        int top = 0;
+        int bottle = matrix.size() - 1;
+        int left = 0;
+        int right = matrix[0].size() - 1;
+
+        vector<int> output;
+        int flag = 0;
+
+        while(top <= bottle && left <= right) {
+            if(flag == 0) {
+                for(int j = left; j <= right; j++)
+                    output.push_back(matrix[top][j]);
+                top++;
+                flag = 1;
+                continue;
+            }
+            if(flag == 1) {
+                for(int i = top; i <= bottle; i++)
+                    output.push_back(matrix[i][right]);
+                right--;
+                flag = 2;
+                continue;
+            }
+            if(flag == 2) {
+                for(int j = right; j >= left; j--)
+                    output.push_back(matrix[bottle][j]);
+                bottle--;
+                flag = 3;
+                continue;
+            }
+            if(flag == 3) {
+                for(int i = bottle; i >= top; i--)
+                    output.push_back(matrix[i][left]);
+                left++;
+                flag = 0;
+                continue;
+            }
+        }
+        return output;
+    }
+};
