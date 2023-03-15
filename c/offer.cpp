@@ -804,3 +804,63 @@ public:
         return s.empty();
     }
 };
+
+// 32
+// 最开始想用DFS写，但是需要注意怎么处理这个动态向量
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> levelOrder(TreeNode* root) {
+        vector<vector<int>> output;
+        wfs(root, output, 0);
+        vector<int> ans;
+    }
+
+    void wfs(TreeNode* root, vector<vector<int>>& output, int depth) {
+        if(!root)
+            return;
+        output[depth].push_back(root->val);
+        wfs(root->left, output, depth+1);
+        wfs(root->right, output, depth+1);
+    }
+};
+
+// BFS 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> levelOrder(TreeNode* root) {
+        if(!root)
+            return {};
+
+        vector<int> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(! q.empty()) {
+            ans.push_back(q.front()->val);
+            if(q.front()->left)
+                q.push(q.front()->left);
+            if(q.front()->right)
+                q.push(q.front()->right);
+            q.pop();
+        }
+        return ans;
+    }
+
+};
