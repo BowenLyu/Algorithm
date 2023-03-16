@@ -864,3 +864,33 @@ public:
     }
 
 };
+
+// 32-2
+// DFS 实现
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        dfs(root, ans, 0);
+        return ans;
+    }
+
+    void dfs(TreeNode* root, vector<vector<int>>& output, int depth) {
+        if(! root)
+            return;
+        if(output.size() <= depth)
+            output.emplace_back(vector<int>());
+        output[depth].push_back(root->val);
+        dfs(root->left, output, depth + 1);
+        dfs(root->right, output, depth + 1);
+    }
+};
