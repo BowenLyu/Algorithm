@@ -894,3 +894,101 @@ public:
         dfs(root->right, output, depth + 1);
     }
 };
+
+// 32-3
+// DFS
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> output;
+        dfs_left(root, output, 0);
+        dfs_right(root, output, 0);
+        return output;
+    }
+
+    void dfs_left(TreeNode* root, vector<vector<int>>& output, int depth) {
+        if(! root) 
+            return;
+        if(output.size() <= depth)
+            output.emplace_back(vector<int>());
+        if(depth % 2 ==0)
+            output[depth].emplace_back(root->val);
+        dfs_left(root->left, output, depth + 1);
+        dfs_left(root->right, output, depth + 1);
+    }
+
+    void dfs_right(TreeNode* root, vector<vector<int>>& output, int depth) {
+        if(! root) 
+            return;
+        if(output.size() <= depth)
+            output.emplace_back(vector<int>());
+        if(depth % 2 ==1)
+            output[depth].emplace_back(root->val);
+        dfs_right(root->right, output, depth + 1);
+        dfs_right(root->left, output, depth + 1);
+    }
+};
+
+// BFS
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(! root)
+            return {};
+
+        vector<vector<int>> output;
+        deque<TreeNode*> q;
+        q.push_back(root);
+        int level = 0;
+        while(! q.empty()) {
+            vector<int> cur;
+            deque<TreeNode*> cq;
+            while(!q.empty()) {
+                cq.push_back(q.front());
+                q.pop_front();
+            }
+            if(level % 2 == 0) {
+                while(!cq.empty())  {
+                    cur.push_back(cq.front()->val);
+                    if(cq.front()->left)
+                        q.push_back(cq.front()->left);
+                    if(cq.front()->right)
+                        q.push_back(cq.front()->right);
+                    cq.pop_front();
+                }
+            }
+            else {
+                while(!cq.empty()) {
+                    cur.push_back(cq.back()->val);
+                    if(cq.back()->right)
+                        q.push_front(cq.back()->right);
+                    if(cq.back()->left) 
+                        q.push_front(cq.back()->left);
+                    cq.pop_back();
+                }
+            }
+            level++;
+            output.emplace_back(cur);
+            
+        }
+        return output;
+    }
+};
