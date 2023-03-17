@@ -992,3 +992,29 @@ public:
         return output;
     }
 };
+
+// 33 
+// 知识点：1. 二叉搜索树  2. 后序遍历返回的数组应该如何划分  3.递归
+// 需要复习
+class Solution {
+public:
+    bool verifyPostorder(vector<int>& postorder) {
+        return verifysub(0, postorder.size()-1, postorder);
+    }
+
+    bool verifysub(int l, int r, vector<int>& postorder) {
+        if(l >= r) 
+            return true;
+
+        int rootval = postorder[r];
+        int nr = l;
+        while(postorder[nr] < rootval && nr < r)
+            nr++;
+        for(int i = nr + 1; i < r; i++) {
+            if(postorder[i] < rootval)
+                return false;
+        }
+        
+        return verifysub(l, nr-1, postorder) && verifysub(nr, r-1, postorder);
+    }
+};
