@@ -1059,3 +1059,49 @@ public:
         ans.pop_back();
     }
 };
+
+// 35
+// 主要是理解题意，不过当前实现的算法可优化的地方较多，效率不是很高
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if(!head)
+            return {};
+
+        unordered_map<Node*, Node*> hash;
+
+        Node* dummy = new Node(-1);
+        Node* h = head;
+        Node* pre = dummy;
+        while(head) {
+            Node* cur = new Node(head->val);
+            hash[head] = cur;
+            pre->next = cur;
+            pre = cur;
+            head = head->next;
+        }
+        pre = dummy->next;
+        while(h) {
+            if(h->random)
+                pre->random = hash[h->random];
+            h = h->next;
+            pre = pre->next;
+        }
+        return dummy->next;
+    }
+};
