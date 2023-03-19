@@ -1018,3 +1018,44 @@ public:
         return verifysub(l, nr-1, postorder) && verifysub(nr, r-1, postorder);
     }
 };
+
+// 34
+// 别忘了递归退出时pop最后一位
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int target) {
+        if(!root)
+            return {};
+        vector<vector<int>> output;
+        vector<int> ans;
+        dfs(root, target, ans, output);
+        return output;
+    }
+
+    void dfs(TreeNode* root, int target, vector<int>& ans, vector<vector<int>>& output) {
+        if(target - root->val != 0 && root->left==nullptr && root->right==nullptr)
+            return;
+
+        ans.push_back(root->val);
+        if(target - root->val == 0 && root->left==nullptr && root->right==nullptr)      
+            output.push_back(ans);
+        else {
+            if(root->left)
+                dfs(root->left, target - root->val, ans, output);
+            if(root->right)
+                dfs(root->right, target - root->val, ans, output);
+        }
+        ans.pop_back();
+    }
+};
