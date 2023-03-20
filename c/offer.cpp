@@ -1181,3 +1181,32 @@ public:
         return root;
     }
 };
+
+// 38
+// 非常巧妙地用交替避免了额外的储存位置
+// 另一种解法是用字典序，首先用所给字符串找到最小字典序，然后一直找更大一点的字典序，直到没有更大的字典序
+class Solution {
+public:
+    vector<string> permutation(string s) {
+        vector<string> ans;
+        dfs(s, 0, ans);
+        return ans;
+    }
+
+    void dfs(string& s, int l, vector<string>& ans) {
+        if(l == s.size()-1) {
+            ans.push_back(s);
+            return;
+        }
+
+        set<int> same;
+        for(int i = l; i < s.size(); i++) {
+            if(same.find(s[i]) != same.end())
+                continue;
+            same.insert(s[i]);
+            swap(s[l], s[i]);
+            dfs(s, l+1, ans);
+            swap(s[l], s[i]);
+        }
+    }
+};
