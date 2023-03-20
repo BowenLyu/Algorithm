@@ -1105,3 +1105,79 @@ public:
         return dummy->next;
     }
 };
+
+// 37
+// 字符串还是不熟练，有些实现函数不知道，得找时间把string看一遍
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(!root)
+            return {};
+
+        string s;
+        queue<TreeNode*> level;
+        level.push(root);
+        while(!level.empty()) {
+            TreeNode* cur = level.front();
+            level.pop();
+            if(cur) {
+                s.append(to_string(cur->val) + ' ');
+                level.push(cur->left);
+                level.push(cur->right);
+            }
+            else
+                s.append("* ");
+        }
+        return s;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if(data.size()==0)
+            return {};
+
+        vector<string> dlist;
+        string num;
+        for(auto& c: data) {
+            if(c == ' ') {
+                dlist.push_back(num);
+                num.clear();
+                continue;
+            }
+            num.push_back(c);
+        }
+
+        TreeNode* root = new TreeNode(stoi(dlist[0]));
+        queue<TreeNode*> tree;
+        tree.push(root);
+        int i = 0;
+        TreeNode* cur;
+        while(!tree.empty()) {
+            cur = tree.front();
+            tree.pop();
+            if(dlist[i+1] != "*") {
+                TreeNode* left = new TreeNode(stoi(dlist[i+1]));
+                cur->left = left;
+                tree.push(left);
+            } 
+            if(dlist[i+2] != "*") {
+                TreeNode* right = new TreeNode(stoi(dlist[i+2]));
+                cur->right = right;
+                tree.push(right);
+            }    
+            i+=2;
+        }
+        return root;
+    }
+};
