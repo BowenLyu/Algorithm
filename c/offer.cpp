@@ -1210,3 +1210,54 @@ public:
         }
     }
 };
+
+// 39
+// 复习了一下快排，归并排序，并用的迭代版本
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        nums = mergesort(nums);
+        return nums[n/2];
+    }
+
+    void quicksort(vector<int>& nums, int l, int r) {
+        if(l>=r)
+            return;
+        int c = nums[l];
+        int index = l+1;
+        for(int i = l+1; i<= r; i++) {
+            if(nums[i] < c) {
+                swap(nums[i], nums[index]);
+                index++;
+            }
+        }
+        swap(nums[l],nums[index-1]);
+
+        if(l < r) {
+            quicksort(nums, l, index - 2);
+            quicksort(nums, index, r);
+        }
+        return;
+    }
+
+    vector<int> mergesort(vector<int> nums) {
+        int n = nums.size();
+        vector<int> ncopy(n);
+        for(int i = 1; i < n; i+= i) {
+            for(int j = 0; j < n; j += i*2 ) {
+                int low = j, mid = min(j+i, n), high = min(j+i*2,n);
+                int start1 = low, end1 = mid;
+                int start2 = mid, end2 = high;
+                while(start1 < end1 && start2 < end2)
+                    ncopy[low++] = nums[start1] < nums[start2]? nums[start1++]: nums[start2++];
+                while(start1 < end1)
+                    ncopy[low++] = nums[start1++];
+                while(start2 < end2)
+                    ncopy[low++] = nums[start2++];
+            }
+            nums = ncopy;
+        }
+        return nums;
+    }
+};
