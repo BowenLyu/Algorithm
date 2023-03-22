@@ -1261,3 +1261,30 @@ public:
         return nums;
     }
 };
+
+// 40
+// 最小(大）堆问题，但优先队列用的还不够熟练，关键点priority_queue<type, container, comparefunction>
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        if(k < 1)
+            return {};
+        int n = arr.size();
+        priority_queue<int> q;
+        for(int i = 0; i < k; i++) 
+            q.push(arr[i]);
+
+        for(int j = k; j < n; j++) {
+            if(q.top() > arr[j]) {
+                q.pop();
+                q.push(arr[j]);
+            }
+        }
+        vector<int> ans;
+        while(!q.empty()) {
+            ans.push_back(q.top());
+            q.pop();
+        }
+        return ans;
+    }
+};
