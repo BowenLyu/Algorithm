@@ -164,6 +164,48 @@ public:
     }
 };
 
+// 07
+// 这个题挺难， 难点一 找前序和中序的规律，难点二 对于递归时边界下标的处理
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+
+public:
+    unordered_map<int, int> hash;
+    vector<int> _preorder;
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if (!preorder.size()) 
+            return nullptr;
+        int n = inorder.size();
+        for(int i = 0; i< n; i++) 
+            hash[inorder[i]] = i;
+
+        _preorder = preorder;
+        TreeNode* root = buildsubTree(0, 0, n-1);
+        return root;
+    }
+
+    TreeNode* buildsubTree(int root, int l, int r){
+        if(l > r)
+            return {};
+
+        TreeNode* node = new TreeNode(_preorder[root]);
+        int rindex = hash[_preorder[root]];
+        node->left = buildsubTree(root + 1, l, rindex -1);
+        node->right = buildsubTree(root + rindex - l + 1, rindex + 1, r);
+        
+        return node;
+    }
+};
+
 // 09
 class CQueue {
 public:
