@@ -1339,3 +1339,22 @@ public:
  * obj->addNum(num);
  * double param_2 = obj->findMedian();
  */
+
+// 42 
+// 做过，做了点优化，不需要储存所有的末尾和最大的值，只需要知道上一个
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int former = nums[0];
+        int cur;
+        int max = former;
+        for(int i = 1; i < n; i++) {
+            cur = former > 0 ? former + nums[i] : nums[i]; 
+            if(cur > max)
+                max = cur;
+            former = cur;
+        }
+        return max;
+    }
+};
