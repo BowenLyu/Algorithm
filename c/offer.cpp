@@ -1400,3 +1400,26 @@ public:
         return max;
     }
 };
+
+// 44
+// 找规律以及注意int上届的问题
+class Solution {
+public:
+    int findNthDigit(int n) {
+        if(n < 10)
+            return n;
+        n -= 10;
+        int k = 1;
+        long long num = 9 * pow(10,k) * (k + 1);
+        while(n > num) {
+            n -= num;
+            k++;
+            num = 9 * pow(10,k) * (k + 1);
+        }
+
+        int realn = n / (k+1) + pow(10, k);
+        int nth = n % (k+1);
+        
+        return int(realn/(pow(10, k - nth))) % 10;
+    }
+};
