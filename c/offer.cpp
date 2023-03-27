@@ -1445,3 +1445,28 @@ public:
             check(num/100, count);
     }
 };
+
+// 47
+// 动态规划，由于规定了方向，转移方程很好写
+class Solution {
+public:
+    int maxValue(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        vector<vector<int> > M(m , vector<int>(n, 0));
+        M[0][0] = grid[0][0];
+        for(int i = 1; i < m; i++) 
+            M[i][0] = M[i-1][0] + grid[i][0];
+        for(int j = 1; j < n; j++)
+            M[0][j] = M[0][j-1] + grid[0][j];
+
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                M[i][j] = max(M[i][j-1] + grid[i][j], M[i-1][j] + grid[i][j]);
+            }
+        }
+        return M[m-1][n-1];
+    }
+};
+
