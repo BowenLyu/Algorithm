@@ -1495,3 +1495,30 @@ public:
         return ' ';
     }
 };
+// 这个对于长字符串来说时间更优，因为hash表最多就26个字母，不再需要遍历整个字符串了
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        unordered_map<char, int> fuc;
+        int order = 1;
+        for(char c : s) {
+            if(fuc.count(c) == 0) {
+                fuc[c] = order;
+                order++; 
+            }
+            else if(fuc[c] > 0)
+            {
+                fuc[c] *= -1;
+            }
+        }
+        int min = INT_MAX;
+        char ans = ' ';
+        for(auto& ele : fuc) {
+            if(ele.second > 0 && min > ele.second) {
+                min = ele.second;
+                ans = ele.first;
+            }
+        }
+        return ans;
+    }
+};
