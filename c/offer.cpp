@@ -1470,3 +1470,28 @@ public:
     }
 };
 
+
+// 50
+// 总感觉有更简单的方法...
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        unordered_map<char, int> fuc;
+        int order = 1;
+        for(char c : s) {
+            if(fuc.count(c) == 0) {
+                fuc[c] = order;
+                order++; 
+            }
+            else if(fuc[c] > 0)
+            {
+                fuc[c] *= -1;
+            }
+        }
+        for(char c : s) {
+            if(fuc[c] > 0)
+                return c;
+        }
+        return ' ';
+    }
+};
