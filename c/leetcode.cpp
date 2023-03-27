@@ -1711,4 +1711,39 @@ public:
     }
 };
 
+// No.695
+// 岛屿最大面积，岛屿类问题， 需要注意的是全为零的情况，所以这里max初值设置为0就好
+class Solution {
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        int max = 0;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == 1) {
+                    int cur = 0;
+                    mark(grid, i, j, cur);
+                    if(cur > max)
+                        max = cur;
+                }
+            }
+        }
+        return max;
+    }
+
+    void mark(vector<vector<int>>& grid, int x, int y, int& area) {
+        if(x < 0 || y < 0 || x > grid.size() -1 || y > grid[0].size() -1)
+            return;
+        if(grid[x][y] == 1) {
+            grid[x][y] = 2;
+            area++;
+            mark(grid, x+1, y, area);
+            mark(grid, x-1, y, area);
+            mark(grid, x, y+1, area);
+            mark(grid, x, y-1, area);
+        }
+    }
+};
 
