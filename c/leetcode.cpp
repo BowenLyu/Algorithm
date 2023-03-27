@@ -1596,6 +1596,42 @@ public:
     }
 };
 
+// No.200
+// 岛屿问题，mhy笔试题延申
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        vector<vector<int> > mark(m, vector<int>(n, 0));
+        int count = 1;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == '1') {
+                    if(connect(grid, mark, count, i, j))
+                        count++;
+                }
+            }
+        }
+        return count - 1;
+    }
+
+    bool connect(vector<vector<char>>& grid, vector<vector<int>>& mark, int n, int x, int y) {
+        if(x < 0 || y < 0 || x > grid.size() -1 || y > grid[0].size() -1)
+            return false;
+        if(mark[x][y] == 0 && grid[x][y] == '1') {
+            mark[x][y] = n;
+            connect(grid, mark, n, x+1, y);
+            connect(grid, mark, n, x-1, y);
+            connect(grid, mark, n, x, y+1);
+            connect(grid, mark, n, x, y-1);
+            return true;
+        }
+        return false;
+    }
+};
+
 // No.215
 class Solution {
 public:
@@ -1674,3 +1710,5 @@ public:
         return topk;
     }
 };
+
+
