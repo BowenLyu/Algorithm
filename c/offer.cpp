@@ -1423,3 +1423,25 @@ public:
         return int(realn/(pow(10, k - nth))) % 10;
     }
 };
+
+// 46
+// 简单的递归，但是注意边界条件
+class Solution {
+public:
+    int translateNum(int num) {
+        int count = 0;
+        check(num, count);
+        return count;
+    }
+
+    void check(int num , int& count) {
+        if(num == 0) {
+            count++;
+            return;
+        }
+        check(num/10, count);
+        int m = num % 100;
+        if(m >= 10 && m < 26)
+            check(num/100, count);
+    }
+};
