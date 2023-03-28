@@ -1470,6 +1470,38 @@ public:
     }
 };
 
+// 49
+// 最开始没做出来，使用set的话是最原始的，让集合中的数乘2，3，5得到新丑数，利用优先队列和set共同完成添加新的最小的丑数的目标
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        // set<int> uglyset;
+        // uglyset.insert(1);
+        vector<int> uglynum = {1};
+        int p2 = 0, p3 = 0, p5 = 0;
+
+        for(int i = 1; i < n; i++) {
+            int u2 = uglynum[p2] * 2;
+            int u3 = uglynum[p3] * 3;
+            int u5 = uglynum[p5] * 5;
+            // if(uglyset.count(u2))
+            //     u2 = INT_MAX;
+            // if(uglyset.count(u3))
+            //     u3 = INT_MAX;
+            // if(uglyset.count(u5))
+            //     u5 = INT_MAX;
+            int new_ugly = min(min(u2, u3), u5);
+            uglynum.push_back(new_ugly);
+            if(new_ugly == u2)
+                p2++;
+            if(new_ugly == u3)
+                p3++;
+            if(new_ugly == u5)
+                p5++;
+        }
+        return uglynum[n-1];
+    }
+};
 
 // 50
 // 总感觉有更简单的方法...
