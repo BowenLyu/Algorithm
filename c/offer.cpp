@@ -1470,6 +1470,26 @@ public:
     }
 };
 
+// 48
+// 双指针+ hash 
+// 还有一种动态规划 + hash， 复习时写
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        int ans = 0;
+        int left = -1;
+        unordered_map<char, int> lastchar;
+        for(int i = 0; i < n; i++) {
+            if(lastchar.count(s[i]))
+                left = max(left, lastchar[s[i]]);
+            ans = max(ans, i - left);
+            lastchar[s[i]] = i;
+        }
+        return ans;
+    }
+};
+
 // 49
 // 最开始没做出来，使用set的话是最原始的，让集合中的数乘2，3，5得到新丑数，利用优先队列和set共同完成添加新的最小的丑数的目标
 class Solution {
