@@ -1574,3 +1574,45 @@ public:
         return ans;
     }
 };
+
+// 52
+//其实感觉写的复杂了，实际上不用多一个判断？
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* ptr1 = headA;
+        ListNode* ptr2 = headB;
+        int flag1 = 0;
+        int flag2 = 0; 
+
+        while(ptr1 && ptr2 && ptr1 != ptr2) {
+            if(ptr1->next == nullptr && flag1 == 0) {
+                ptr1 = headB;
+                flag1++;
+            }
+            else {
+                ptr1 = ptr1->next;
+            }
+            if(ptr2->next == nullptr && flag2 == 0) {
+                ptr2 = headA;
+                flag2++;
+            }
+            else {
+                ptr2 = ptr2->next;
+            }
+        }
+
+        if(ptr1 && ptr2)
+            return ptr1;
+        else
+            return nullptr;
+    }
+};
