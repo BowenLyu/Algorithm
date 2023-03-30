@@ -1674,3 +1674,36 @@ public:
             return l;
     }
 };
+
+// 54
+// 本质是中序遍历 + 加入类变量辅助确定位置
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int kth;
+    int count;
+    int kthLargest(TreeNode* root, int k) {
+        count = k;
+        dfs(root);
+        return kth;
+    }
+
+    void dfs(TreeNode* root) {
+        if(root == NULL)
+            return;
+
+        dfs(root->right);
+        count--;
+        if(count == 0)
+            kth = root->val;
+        dfs(root->left);
+    }
+};
