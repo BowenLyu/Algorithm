@@ -1616,3 +1616,39 @@ public:
             return nullptr;
     }
 };
+
+// 53
+// 二分法的老难点，边界条件。官方的做法是用两个二分法分别找左边界和右边界
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        if(n == 0)
+            return 0;
+        if(target > nums[n-1])
+            return 0;
+        if(target < nums[0])
+            return 0;
+        int l = 0;
+        int r = n -1;
+        while(l < r) {
+            int mid = l + (r-l)/2;
+            if(target < nums[mid])
+                r = mid-1;
+            if(target > nums[mid])
+                l = mid+1;
+            if(target == nums[mid]) {
+                if(nums[r] != target)
+                    r--;
+                else if(nums[l] != target)
+                    l++;
+                else
+                    break;
+            }
+        }
+        if(l == r)
+            return target == nums[l];
+        else
+            return r - l + 1;
+    }
+};
