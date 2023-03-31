@@ -1730,3 +1730,33 @@ public:
         return max(ld,rd) + 1;
     }
 };
+
+// 55-2
+// 唯一的提升点在剪枝上
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        return !(dfs(root) == -1);
+    }
+
+    int dfs(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+
+        int l = dfs(root->left);
+        if(l == -1) return -1;
+        int r = dfs(root->right);
+        if(r == -1) return -1;
+
+        return abs(r - l) > 1 ? -1 : max(l, r) + 1;
+    }
+};
