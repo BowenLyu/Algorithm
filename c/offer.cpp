@@ -1782,3 +1782,62 @@ public:
         return {};
     }
 };
+
+// 57-2
+// 最开始没考虑录入子答案后，变动窗口
+class Solution {
+public:
+    vector<vector<int>> findContinuousSequence(int target) {
+        int l = 1;
+        int r = 2;
+        int b = target >> 1;
+        int sum = l + r;
+        vector<vector<int> > ans;
+        while(r <= b + 1){
+            if(sum < target) {
+                r++;
+                sum += r;
+            }
+            else if(sum > target) {
+                sum -= l;
+                l++;
+            }
+            if(sum == target) {
+                vector<int> subans;
+                for(int i = l; i <= r; i++)
+                    subans.push_back(i);
+                ans.push_back(subans);
+                sum -= l;
+                l++;
+            }
+        }
+        return ans;
+    }
+    
+// 58
+// 还没复习字符串相关
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string> words;
+        int n = s.size();
+        for(int i = 0; i < n; i++) {
+            if(s[i] == ' ')
+                continue;
+            string word;
+            while(i < n && s[i] != ' ') {
+                word.push_back(s[i]);
+                i++;
+            }
+            words.push_back(word);
+        }
+        string output;
+        int m = words.size();
+        for(int i = m - 1; i >= 0; i--) {
+            output.append(words[i] + ' ');
+        }
+        output.pop_back();
+        return output;
+    }
+};
+};
