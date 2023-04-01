@@ -1841,3 +1841,17 @@ public:
     }
 };
 };
+
+// 65
+// 记下来吧，以及unsign int防溢出这块没太懂
+class Solution {
+public:
+    int add(int a, int b) {
+        while(b != 0) {
+            unsigned int c = (unsigned int)(a&b) <<1;
+            a ^= b;
+            b = c;
+        }
+        return a;
+    }
+};
