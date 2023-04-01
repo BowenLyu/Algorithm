@@ -1842,6 +1842,33 @@ public:
 };
 };
 
+// 61
+// 一副牌居然有>2个王...麻了
+class Solution {
+public:
+    bool isStraight(vector<int>& nums) {
+        sort(nums.begin(), nums.end(), greater<int>());
+        int count = 0;
+        int k = 1;
+        int i = 1;
+        while(k < 5) {
+            if(nums[i] + k != nums[0]) {
+                if(count > 4 || nums[4-count] != 0)
+                    return false;
+                else {
+                    count++;
+                    k++;
+                }
+            }
+            else {
+                i++;
+                k++;
+            }
+        }
+        return true;
+    }
+};
+
 // 65
 // 记下来吧，以及unsign int防溢出这块没太懂
 class Solution {
