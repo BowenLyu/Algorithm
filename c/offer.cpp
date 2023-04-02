@@ -1882,3 +1882,68 @@ public:
         return a;
     }
 };
+
+// 68
+// 没有利用到二叉搜索树性质的做法
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* pbc;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        isIn(root, p, q);
+        return pbc;
+        
+    }
+
+    bool isIn(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root)
+            return false;
+
+        bool l = isIn(root->left, p, q);
+        bool r = isIn(root->right, p, q);
+
+        if(root->val == p->val) {
+            if(l|r)
+                pbc = root;
+            return true;
+        }
+        if(root->val == q->val) {
+            if(l|r)
+                pbc = root;
+            return true;
+        }
+        if(l&r)
+            pbc = root;
+
+        return l|r;
+    }
+};
+
+//利用了搜索树特点的写法
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root->val > p->val && root->val > q->val) 
+            return lowestCommonAncestor(root->left, p, q);
+        if(root->val < p->val && root->val < q->val)
+            return lowestCommonAncestor(root->right, p, q);
+        return root;
+    }
+};
