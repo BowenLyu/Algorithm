@@ -1842,6 +1842,24 @@ public:
 };
 };
 
+// 60
+class Solution {
+public:
+    vector<double> dicesProbability(int n) {
+        vector<double> dp(6, 1.0 / 6.0);
+        for(int i = 1; i < n; i++) {
+            vector<double> temp(5*i + 6, 0);
+            for(int j = 0; j < 5*i + 1; j++) {
+                for(int k = 0; k < 6; k++) {
+                    temp[j+k] += dp[j]/6.0;
+                }
+            }
+            dp = temp;
+        }
+        return dp;
+    }
+};
+
 // 61
 // 一副牌居然有>2个王...麻了
 class Solution {
