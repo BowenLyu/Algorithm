@@ -1238,6 +1238,33 @@ public:
         
     }
 };
+// 复习时的解答
+class Solution {
+public:
+    vector<vector<int> > all;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> candidate;
+        sort(candidates.begin(), candidates.end());
+        dfs(candidates, target, 0, candidate);
+        return all;
+    }
+
+    void dfs(vector<int>& candidates, int target, int idx, vector<int>& candidate) {
+        if(target == 0) {
+            all.push_back(candidate);
+            return;
+        }
+        if(target < candidates[0])
+            return;
+
+        while(idx < candidates.size() && target >= candidates[idx]) {
+            candidate.push_back(candidates[idx]);
+            dfs(candidates, target - candidates[idx], idx, candidate);
+            candidate.pop_back();
+            idx++;
+        }
+    }
+};
 
 // No.40
 class Solution {
